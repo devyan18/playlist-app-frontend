@@ -1,3 +1,5 @@
+import styles from "../styles/AuthForm.module.css";
+
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../utils/consts";
@@ -43,12 +45,19 @@ function RegisterForm() {
   return (
     <div>
       <h2>Register</h2>
-      <form onSubmit={handleSubmit} ref={ref}>
-        <input type="url" placeholder="www.my-avatar.com" name="avatar" />
-        <input type="email" placeholder="my-email@email.com" name="email" />
-        <input type="text" placeholder="Joe Doe" name="username" />
-        <input type="password" placeholder="*******" name="password" />
-        <br />
+      <form onSubmit={handleSubmit} ref={ref} className={styles.form}>
+        <div className={styles.inputGroup}>
+          <input type="url" placeholder="www.my-avatar.com" name="avatar" />
+        </div>
+        <div className={styles.inputGroup}>
+          <input type="email" placeholder="my-email@email.com" name="email" />
+        </div>
+        <div className={styles.inputGroup}>
+          <input type="text" placeholder="Joe Doe" name="username" />
+        </div>
+        <div className={styles.inputGroup}>
+          <input type="password" placeholder="*******" name="password" />
+        </div>
         <button>Register</button>
       </form>
     </div>
