@@ -1,10 +1,8 @@
-import styles from "../styles/Playlist.module.css";
-
 import { useCallback, useContext, useEffect, useState } from "react";
 import { API_URL } from "../utils/consts";
 import { AuthContext } from "../providers/AuthProvider";
+
 import Playlist from "../components/Playlist";
-import Navbar from "../components/Navbar";
 
 function PlaylistPage() {
   const [playlists, setPlaylists] = useState([]);
@@ -27,10 +25,9 @@ function PlaylistPage() {
   }, [auth, getPlaylist]);
 
   return (
-    <div className={styles.container}>
-      <Navbar />
+    <div>
       <h1>My playlists</h1>
-      <main className={styles.section}>
+      <main>
         <Playlist getPlaylist={getPlaylist} playlists={playlists} />
       </main>
     </div>

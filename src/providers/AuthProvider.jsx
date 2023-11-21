@@ -16,6 +16,7 @@ function AuthProvider({ children }) {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     setAuth(null);
+    window.location.replace("/login");
   };
 
   useEffect(() => {
@@ -31,10 +32,8 @@ function AuthProvider({ children }) {
         setAuth(null);
         return;
       }
-
-      setAuth({ user, token });
     }, 1000);
-  }, []);
+  }, [auth]);
 
   return (
     <AuthContext.Provider value={{ auth, login, logout }}>

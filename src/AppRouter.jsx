@@ -5,8 +5,6 @@ import LoginForm from "./components/LoginForm";
 import NotFoundPage from "./pages/404Page";
 import PlaylistPage from "./pages/PlaylistPage";
 import PrivateRoutes from "./components/PrivateRoutes";
-import NewPlaylist from "./pages/NewPlaylist";
-import MusicPage from "./pages/MusicsPage";
 
 function AppRouter() {
   return (
@@ -15,8 +13,6 @@ function AppRouter() {
       <Route element={<PrivateRoutes />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/playlist" element={<PlaylistPage />} />
-        <Route path="/playlist/new" element={<NewPlaylist />} />
-        <Route path="/playlist/:playlistId" element={<MusicPage />} />
       </Route>
 
       {/* Rutas Públicas */}

@@ -1,5 +1,3 @@
-import styles from "../styles/AuthForm.module.css";
-
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../utils/consts";
@@ -43,24 +41,65 @@ function RegisterForm() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit} ref={ref} className={styles.form}>
-        <div className={styles.inputGroup}>
-          <input type="url" placeholder="www.my-avatar.com" name="avatar" />
-        </div>
-        <div className={styles.inputGroup}>
-          <input type="email" placeholder="my-email@email.com" name="email" />
-        </div>
-        <div className={styles.inputGroup}>
-          <input type="text" placeholder="Joe Doe" name="username" />
-        </div>
-        <div className={styles.inputGroup}>
-          <input type="password" placeholder="*******" name="password" />
-        </div>
-        <button>Register</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} ref={ref}>
+      <h1 className="h3 mb-3 fw-normal">Sign up</h1>
+      <div className="form-floating">
+        <input
+          type="url"
+          name="avatar"
+          className="form-control"
+          id="avatar"
+          placeholder="name@example.com"
+        />
+        <label htmlFor="avatar">Avatar</label>
+      </div>
+      <div className="form-floating">
+        <input
+          type="text"
+          name="username"
+          className="form-control"
+          id="username"
+          placeholder="name@example.com"
+        />
+        <label htmlFor="username">Username</label>
+      </div>
+      <div className="form-floating">
+        <input
+          type="email"
+          name="email"
+          className="form-control"
+          id="email"
+          placeholder="name@example.com"
+        />
+        <label htmlFor="email">Email address</label>
+      </div>
+      <div className="form-floating">
+        <input
+          type="password"
+          className="form-control"
+          name="password"
+          id="password"
+          placeholder="Password"
+        />
+        <label htmlFor="password">Password</label>
+      </div>
+
+      <div className="form-check text-start my-3">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          value="remember-me"
+          id="flexCheckDefault"
+        />
+        <label className="form-check-label" htmlFor="flexCheckDefault">
+          Remember me
+        </label>
+      </div>
+      <button className="btn btn-primary w-100 py-2" type="submit">
+        Sign up
+      </button>
+      <p className="mt-3 mb-3 text-body-secondary">&copy; 2017–2023</p>
+    </form>
   );
 }
 

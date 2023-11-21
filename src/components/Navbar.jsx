@@ -1,9 +1,16 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Navbar = () => {
+  const { logout } = useContext(AuthContext);
+
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
+    <nav
+      className="navbar navbar-expand-lg bg-body-tertiary stiky-top bg-dark border-bottom border-body"
+      data-bs-theme="dark"
+    >
+      <div className="container" style={{ maxWidth: "1200px" }}>
         <Link className="navbar-brand" to="/">
           Navbar
         </Link>
@@ -21,9 +28,15 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" to="/">
+              <NavLink
+                className={({ isActive }) => {
+                  console.log(isActive);
+                  return isActive ? "nav-link active" : "nav-link";
+                }}
+                to="/"
+              >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/playlist">
@@ -36,6 +49,15 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
+          <div className="d-flex" role="search">
+            <button
+              className="btn btn-outline-danger btn-sm"
+              type="button"
+              onClick={logout}
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </nav>

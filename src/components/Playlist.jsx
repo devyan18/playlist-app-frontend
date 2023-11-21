@@ -18,19 +18,21 @@ const Playlist = ({ playlists, getPlaylist }) => {
   }, [search, playlists]);
 
   return (
-    <div style={{ minWidth: "420px" }}>
-      <Link to="/playlist/new" className="btn btn-success">
-        Create
-      </Link>
-      <input
-        type="search"
-        className="form-control"
-        placeholder="Search"
-        value={search}
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
-      />
+    <div>
+      <div>
+        <Link to="/playlist/new" className="btn btn-success">
+          Create
+        </Link>
+        <input
+          type="search"
+          className="form-control"
+          placeholder="Search"
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+        />
+      </div>
       <>
         {filterPlaylists.map((playlist) => {
           return (
