@@ -20,20 +20,19 @@ function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+    // si no tenemos alguno de los dos campos en el localStorage borramos todo
+    if (!user || !token) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
 
-      // si no tenemos alguno de los dos campos en el localStorage borramos todo
-      if (!user || !token) {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-
-        setAuth(null);
-        return;
-      }
-    }, 1000);
-  }, [auth]);
+      setAuth(null);
+      return;
+    } else {
+      setAuth({ user, token });
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ auth, login, logout }}>

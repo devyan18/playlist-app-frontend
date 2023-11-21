@@ -14,10 +14,8 @@ function PrivateRoutes() {
   }, [auth, navigate]);
 
   if (auth === undefined) return <div>Loading...</div>;
-
   return (
-    //  full screen div with class of bootstrap
-    <div>
+    <div className="layout">
       <Navbar />
       <Outlet />
     </div>

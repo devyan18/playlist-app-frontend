@@ -1,68 +1,90 @@
+import { BsFillTrashFill, BsMusicNoteList } from "react-icons/bs";
+import Swal from "sweetalert2";
+import { API_URL } from "../utils/consts";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 import { Link } from "react-router-dom";
-import { HiOutlineTrash, HiOutlinePencilAlt } from "react-icons/hi";
-import { HiMiniUserCircle, HiMiniMusicalNote } from "react-icons/hi2";
 
-const PlayItem = ({ playlist, onClick }) => {
+const PlayItem = ({ playlistId, title, avatar, username, musics, refresh }) => {
+  const { auth } = useContext(AuthContext);
+
+  const handleDelete = async (playlistId) => {
+    return await fetch(`${API_URL}/playlist/${playlistId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: auth.token,
+      },
+    });
+  };
+
   return (
-    <div className="card mb-3" style="max-width: 540px;">
+    <div className="card mb-3">
       <div className="row g-0">
         <div className="col-md-4">
-          <img
-            src={playlist.author.avatar}
-            className="img-fluid rounded-start"
-            alt="..."
-          />
+          <img src={avatar} className="img-fluid rounded-start" />
         </div>
         <div className="col-md-8">
           <div className="card-body">
-            <h5 className="card-title">Card title</h5>
+            <h5 className="card-title">{title}</h5>
             <p className="card-text">
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
+              <b>{username}: </b>
+              <span>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </span>
             </p>
-            <p className="card-text">
-              <small className="text-body-secondary">
-                Last updated 3 mins ago
-              </small>
-            </p>
+            <div className="d-flex flex-row justify-content-between">
+              <span className="card-text">
+                <small className="text-body-secondary">
+                  {musics.length} musics
+                </small>
+              </span>
+              <div>
+                <Link
+                  className="btn btn-primary"
+                  to={`/playlist/${playlistId}`}
+                >
+                  <BsMusicNoteList />
+                </Link>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => {
+                    Swal.fire({
+                      title: "Are you sure?",
+                      text: "You won't be able to revert this!",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "Yes, delete it!",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        handleDelete(playlistId).then((res) => {
+                          if (res.status !== 200) {
+                            return Swal.fire({
+                              icon: "error",
+                              title: "Oops...",
+                              text: "Something went wrong!",
+                              timer: 2500,
+                            });
+                          } else {
+                            Swal.fire({
+                              title: "Deleted!",
+                              text: "Your file has been deleted.",
+                              icon: "success",
+                            });
+                            refresh();
+                          }
+                        });
+                      }
+                    });
+                  }}
+                >
+                  <BsFillTrashFill />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <picture>
-        <img src={playlist.author.avatar} alt={playlist.author.username} />
-      </picture>
-      <section>
-        <h2>{playlist.title}</h2>
-        <p>
-          <b>
-            <span>
-              <HiMiniUserCircle />
-            </span>
-            <span>{playlist.author.username}</span>
-          </b>
-          <span>
-            <b>
-              <HiMiniMusicalNote />
-            </b>
-            {playlist.musics.length}
-          </span>
-        </p>
-      </section>
-      <div>
-        <a onClick={onClick} style={{ fontSize: "30px", color: "green" }}>
-          <HiOutlinePencilAlt />
-        </a>
-        <Link
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          data-bs-toggle="modal"
-          data-bs-target={"#modal" + playlist._id}
-          style={{ fontSize: "30px", color: "red" }}
-        >
-          <HiOutlineTrash />
-        </Link>
       </div>
     </div>
   );
